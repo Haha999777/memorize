@@ -10,9 +10,33 @@
 		5F420BCE2F67F83F0036162A /* memorize.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = memorize.app; sourceTree = BUILT_PRODUCTS_DIR; };
 /* End PBXFileReference section */
 
+/* Begin PBXFileSystemSynchronizedBuildFileExceptionSet section */
+		5F420BE82F6809950036162A /* Exceptions for "memorize" folder in "memorize" target */ = {
+			isa = PBXFileSystemSynchronizedBuildFileExceptionSet;
+			membershipExceptions = (
+				README.md,
+			);
+			target = 5F420BCD2F67F83F0036162A /* memorize */;
+		};
+/* End PBXFileSystemSynchronizedBuildFileExceptionSet section */
+
+/* Begin PBXFileSystemSynchronizedGroupBuildPhaseMembershipExceptionSet section */
+		5F420BE92F6809950036162A /* Exceptions for "memorize" folder in "Compile Sources" phase from "memorize" target */ = {
+			isa = PBXFileSystemSynchronizedGroupBuildPhaseMembershipExceptionSet;
+			buildPhase = 5F420BCA2F67F83F0036162A /* Sources */;
+			membershipExceptions = (
+				README.md,
+			);
+		};
+/* End PBXFileSystemSynchronizedGroupBuildPhaseMembershipExceptionSet section */
+
 /* Begin PBXFileSystemSynchronizedRootGroup section */
 		5F420BD02F67F83F0036162A /* memorize */ = {
 			isa = PBXFileSystemSynchronizedRootGroup;
+			exceptions = (
+				5F420BE82F6809950036162A /* Exceptions for "memorize" folder in "memorize" target */,
+				5F420BE92F6809950036162A /* Exceptions for "memorize" folder in "Compile Sources" phase from "memorize" target */,
+			);
 			path = memorize;
 			sourceTree = "<group>";
 		};
