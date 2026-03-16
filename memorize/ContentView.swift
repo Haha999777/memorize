@@ -26,7 +26,7 @@ struct CardView: View{
             if isFaceUp{
                 RoundedRectangle(cornerRadius: 20)
                     .strokeBorder(lineWidth:3)
-                Text("✈️")
+                Text("")
             }
             else{
                     RoundedRectangle(cornerRadius: 20)
