@@ -14,20 +14,33 @@ struct ContentView: View {
     
     var body: some View {
         VStack{
-            HStack {
-                ForEach(emojis[0..<emojiCount], id: \.self) {emoji in CardView(content: emoji)
-                }
-            }
-            HStack{
-                remove
-                Spacer()
-                add
-            }
-            .font(.largeTitle)
+            cardList
+            Spacer()
+            actionButtons
         }
         .padding()
         .foregroundStyle(.orange)
     }
+    var cardList: some View {
+        ScrollView{
+            LazyVGrid (columns: [GridItem(.adaptive(minimum: 85),spacing: 0)], spacing: 0) {
+                ForEach(emojis[0..<emojiCount], id: \.self) {emoji in CardView(content: emoji)
+                        .aspectRatio(2/3, contentMode: .fit)
+                        .padding(4)
+                }
+            }
+        }
+    }
+    
+    var actionButtons:some View {
+        HStack{
+            remove
+            Spacer()
+            add
+        }
+        .font(.largeTitle)
+    }
+    
     var remove: some View {
         Button {if emojiCount > 1 {emojiCount -= 1}} label: {Image(systemName: "minus.circle")}
     }
@@ -41,14 +54,17 @@ struct CardView: View{
     var body: some View{
         ZStack {
             let shape = RoundedRectangle(cornerRadius:20)
-            if isFaceUp{
+            Group{
                 shape.fill(.white)
                 shape.strokeBorder(lineWidth:3)
-                Text(content).font(.largeTitle)
+                Text(content)
+                    .font(Font.system(size: 300))
+                    .minimumScaleFactor(0.01)
+                    .aspectRatio(1,contentMode: .fit)
             }
-            else{
-                shape
-            }
+            .opacity(isFaceUp ? 1:0)
+            
+            shape.opacity(isFaceUp ? 0:1)
         }
         //.onTapGesture (perform: {
         //isFaceUp = !isFaceUp
