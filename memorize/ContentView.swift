@@ -11,27 +11,36 @@ struct ContentView: View {
     var viewModel: EmojiMemoryGame
     
     var body: some View {
-        VStack{
-            HStack{
+        VStack {
+            HStack {
                 Text(viewModel.themeName).font(.title)
                 Spacer()
                 Text("Score: \(viewModel.score)").font(.title2)
             }
             cardList
                 .animation(.default, value: viewModel.cards)
-            Spacer()
-            Button("Shuffle") {
-                viewModel.shuffle()
+            HStack {
+                Button(action: { viewModel.shuffle() }) {
+                    Text("Shuffle")
+                }
+                Spacer()
+                Button(action: { viewModel.newGame() }) {
+                    VStack {
+                        Image(systemName: "plus.circle").font(.largeTitle)
+                        Text("New Game").font(.caption)
+                    }
+                }
             }
-            .font(.largeTitle)
         }
         .padding()
         .foregroundStyle(.orange)
     }
+
     var cardList: some View {
-        ScrollView{
-            LazyVGrid (columns: [GridItem(.adaptive(minimum: 85),spacing: 0)], spacing: 0) {
-                ForEach(viewModel.cards) {card in CardView(card: card)
+        ScrollView {
+            LazyVGrid(columns: [GridItem(.adaptive(minimum: 85), spacing: 0)], spacing: 0) {
+                ForEach(viewModel.cards) { card in
+                    CardView(card: card)
                         .aspectRatio(2/3, contentMode: .fit)
                         .padding(4)
                         .onTapGesture {
@@ -42,28 +51,28 @@ struct ContentView: View {
         }
     }
 }
-struct CardView: View{
+
+struct CardView: View {
     var card: memoryGame<String>.Card
-    var body: some View{
+    var body: some View {
         ZStack {
-            let shape = RoundedRectangle(cornerRadius:20)
-            Group{
+            let shape = RoundedRectangle(cornerRadius: 20)
+            Group {
                 shape.fill(.white)
-                shape.strokeBorder(lineWidth:3)
+                shape.strokeBorder(lineWidth: 3)
                 Text(card.content)
                     .font(Font.system(size: 300))
                     .minimumScaleFactor(0.01)
-                    .aspectRatio(1,contentMode: .fit)
+                    .aspectRatio(1, contentMode: .fit)
             }
-            .opacity(card.isFaceUp ? 1:0)
+            .opacity(card.isFaceUp ? 1 : 0)
             
-            shape.opacity(card.isFaceUp ? 0:1)
+            shape.opacity(card.isFaceUp ? 0 : 1)
         }
-        .opacity(card.isMatched && !card.isFaceUp ? 0:1)
+        .opacity(card.isMatched && !card.isFaceUp ? 0 : 1)
     }
 }
 
 #Preview {
     ContentView(viewModel: EmojiMemoryGame())
-    
 }
