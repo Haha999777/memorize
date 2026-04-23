@@ -12,6 +12,11 @@ struct ContentView: View {
     
     var body: some View {
         VStack{
+            HStack{
+                Text(viewModel.themeName).font(.title)
+                Spacer()
+                Text("Score: \(viewModel.score)").font(.title2)
+            }
             cardList
                 .animation(.default, value: viewModel.cards)
             Spacer()

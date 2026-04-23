@@ -8,6 +8,7 @@
 import Foundation
 struct memoryGame<CardContent> where CardContent: Equatable {
     var cards: [Card]
+    var score = 0
     
     init(numberOfPairsOfCards: Int, createCardContent: (Int) -> CardContent) {
         cards = []
@@ -20,20 +21,29 @@ struct memoryGame<CardContent> where CardContent: Equatable {
     }
     var lastFaceUpIndex: Int?
     mutating func choose(_ card: Card) {
-        if let chosenIndex = index(of: card) {
+        if let chosenIndex = cards.firstIndex(where: { $0.id == card.id }),!cards[chosenIndex].isFaceUp, !cards[chosenIndex].isMatched {
             if let lastIndex = lastFaceUpIndex{
                 if cards[lastIndex].content == cards[chosenIndex].content{
                     cards[lastIndex].isMatched = true
                     cards[chosenIndex].isMatched = true
+                    score += 2
+                }else {
+                    if cards[chosenIndex].hasBeenSeen{
+                        score -= 1
+                    }
+                    if cards[lastIndex].hasBeenSeen{
+                        score -= 1
+                    }
                 }
                 lastFaceUpIndex = nil
             }else {
-                for i in 0..<cards.count{
+                for i in cards.indices {
                     cards[i].isFaceUp = false
                 }
                 lastFaceUpIndex = chosenIndex
             }
-            cards[chosenIndex].isFaceUp.toggle()
+            cards[chosenIndex].isFaceUp = true
+            cards[chosenIndex].hasBeenSeen = true
         }
         print("cards: \(cards)")
     }
@@ -58,9 +68,10 @@ struct memoryGame<CardContent> where CardContent: Equatable {
         }
         var isFaceUp: Bool = false
         var isMatched: Bool = false
-        var content: CardContent
+        var hasBeenSeen: Bool = false
         
-        var id: String
+        let content: CardContent
+        let id: String
     }
     
 }
