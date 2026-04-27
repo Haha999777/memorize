@@ -75,3 +75,8 @@ struct memoryGame<CardContent> where CardContent: Equatable {
     }
     
 }
+extension Array{
+    var oneandonly: Element? {
+        return count == 1 ? first : nil
+    }
+}
